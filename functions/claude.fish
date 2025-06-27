@@ -2,10 +2,10 @@
 # Unified wrapper for Claude Code and Claude Trace with intelligent routing
 #
 # This function provides a single 'claude' command that automatically routes
-# between claude-code and claude-trace based on the arguments provided.
+# between claude and claude-trace based on the arguments provided.
 #
 # Usage modes:
-#   claude "prompt"                    -> claude-code "prompt"
+#   claude "prompt"                    -> claude code "prompt"
 #   claude -T "prompt"                 -> claude-trace --run-with "prompt"  
 #   claude --extract-token             -> claude-trace --extract-token
 #   claude -T --include-all-requests "prompt" -> claude-trace --include-all-requests --run-with "prompt"
@@ -47,12 +47,12 @@ function claude
 
     # Handle help requests contextually
     # - If trace mode is active (via flags or trace options), show claude-trace help
-    # - Otherwise, show claude-code help plus our custom tracing option documentation
+    # - Otherwise, show claude help plus our custom tracing option documentation
     if test "$has_help" = true
         if test "$use_trace" = true
             command claude-trace --help
         else
-            command claude-code --help
+            command claude --help
             echo ""
             echo "Additional options:"
             echo "  -T, --with-tracing              Enable request tracing via claude-trace"
@@ -71,7 +71,7 @@ function claude
     #   3. Only claude_args with trace flag: claude-trace --run-with <claude-args>
     #
     # Normal mode:
-    #   4. claude-code <claude-args>
+    #   4. claude <claude-args>
     #
     # Note: Using 'command' prefix to call actual binaries, not this function recursively
     if test "$use_trace" = true
@@ -94,7 +94,7 @@ function claude
     else
         # Normal Claude Code execution
         # Example: claude --model sonnet "fix this"
-        # Becomes: claude-code --model sonnet "fix this"
-        command claude-code $claude_args
+        # Becomes: claude --model sonnet "fix this"
+        command claude $claude_args
     end
 end
