@@ -95,13 +95,13 @@ The wrapper intelligently determines which tool to use based on:
 1. **Explicit tracing flag**: `-T` or `--with-tracing`
 2. **Claude Trace-specific options**: `--extract-token`, `--generate-html`, `--index`, `--include-all-requests`, `--no-open`
 
-When tracing is detected, it routes to `claude-trace` with appropriate `--run-with` arguments. Otherwise, it uses `claude-code` directly.
+When tracing is detected, it routes to `claude-trace` with appropriate `--run-with` arguments. Otherwise, it uses `claude` directly.
 
 ## Command Mapping
 
 | Your Input                                | Actual Command                                          |
 | ----------------------------------------- | ------------------------------------------------------- |
-| `claude "help"`                           | `claude-code "help"`                                    |
+| `claude "help"`                           | `claude "help"`                                         |
 | `claude -T "help"`                        | `claude-trace --run-with "help"`                        |
 | `claude --extract-token`                  | `claude-trace --extract-token`                          |
 | `claude -T --include-all-requests "help"` | `claude-trace --include-all-requests --run-with "help"` |
